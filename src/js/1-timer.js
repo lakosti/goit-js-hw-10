@@ -46,10 +46,14 @@ function onclick() {
 
     const { days, hours, minutes, seconds } = convertMs(diff);
 
-    day.textContent = days.toString().padStart(2, '0');
-    hour.textContent = hours.toString().padStart(2, '0');
-    minute.textContent = minutes.toString().padStart(2, '0');
-    second.textContent = seconds.toString().padStart(2, '0');
+    function addLeadingZero(value) {
+      return value.toString().padStart(2, '0');
+    }
+    // day.textContent = days.toString().padStart(2, '0');
+    day.textContent = addLeadingZero(days);
+    hour.textContent = addLeadingZero(hours);
+    minute.textContent = addLeadingZero(minutes);
+    second.textContent = addLeadingZero(seconds);
 
     if (!minutes && !seconds) {
       clearInterval(timeoutId);
