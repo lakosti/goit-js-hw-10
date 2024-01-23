@@ -10,6 +10,7 @@ const hour = document.querySelector('[data-hours]');
 const minute = document.querySelector('[data-minutes]');
 const second = document.querySelector('[data-seconds]');
 
+btn.disabled = true;
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -25,6 +26,7 @@ const options = {
         position: 'topCenter',
       });
     } else {
+      btn.disabled = true;
       iziToast.error({
         title: 'Error',
         message: '"Please choose a date in the future"',
@@ -49,7 +51,7 @@ function onclick() {
     function addLeadingZero(value) {
       return value.toString().padStart(2, '0');
     }
-    // day.textContent = days.toString().padStart(2, '0');
+
     day.textContent = addLeadingZero(days);
     hour.textContent = addLeadingZero(hours);
     minute.textContent = addLeadingZero(minutes);
@@ -57,7 +59,7 @@ function onclick() {
 
     if (!minutes && !seconds) {
       clearInterval(timeoutId);
-      btn.disabled = false;
+      btn.disabled = true;
       input.disabled = false;
     }
   }, 1000);
