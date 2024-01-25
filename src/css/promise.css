@@ -1,0 +1,19 @@
+fieldset {
+  border-color: blue;
+  width: 230px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+input {
+  border-color: blue;
+  padding: 10px;
+}
+
+button {
+  cursor: pointer;
+  background-color: blue;
+  border-color: transparent;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
