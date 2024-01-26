@@ -10,42 +10,30 @@ const hour = document.querySelector('[data-hours]');
 const minute = document.querySelector('[data-minutes]');
 const second = document.querySelector('[data-seconds]');
 
+let userTime;
 btn.disabled = true;
+
 const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    let userSelectedDate = selectedDates[0];
-    if (userSelectedDate >= options.defaultDate) {
-      btn.disabled = false;
-      iziToast.success({
-        title: 'OK',
-        message: 'Successfully!',
-        position: 'topCenter',
-      });
-    } else {
-      btn.disabled = true;
-      iziToast.error({
-        title: 'Error',
-        message: '"Please choose a date in the future"',
-        position: 'topCenter',
-      });
-    }
+    userTime = selectedDates[0];
+    checkDate(userTime);
   },
 };
 flatpickr(input, options);
+
 btn.addEventListener('click', onclick);
 
 function onclick() {
   btn.disabled = true;
   input.disabled = true;
-  const timeoutId = setInterval(() => {
-    const date = new Date();
-    const dateInFuture = new Date(input.value);
-    const diff = dateInFuture - date;
 
+  const timeoutId = setInterval(() => {
+    const date = Date.now();
+    const diff = userTime - date;
     const { days, hours, minutes, seconds } = convertMs(diff);
 
     function addLeadingZero(value) {
@@ -65,6 +53,23 @@ function onclick() {
   }, 1000);
 }
 
+function checkDate(userTime) {
+  if (userTime >= options.defaultDate) {
+    btn.disabled = false;
+    iziToast.success({
+      title: 'OK',
+      message: 'Successfully!',
+      position: 'topCenter',
+    });
+  } else {
+    btn.disabled = true;
+    iziToast.error({
+      title: 'Error',
+      message: '"Please choose a date in the future"',
+      position: 'topCenter',
+    });
+  }
+}
 function convertMs(ms) {
   const second = 1000;
   const minute = second * 60;
